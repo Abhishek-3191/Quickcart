@@ -22,7 +22,12 @@ const userData={
     imageUrl:image_url,
 }
 await connectDB()
-await User.create(userData)
+// await User.create(userData)
+try {
+    await User.create(userData);
+} catch (error) {
+    console.error("Error creating user:", error);
+}
 }
 )
 
@@ -43,7 +48,7 @@ export const syncUserUpdation=inngest.createFunction(
             imageUrl:image_url,
         }
         await connectDB()
-        await User.findByIdAndUpdate(id,userData)
+        await User.findByIdAndUpdate(id,userData,{ new: true })
         }
 )
 
