@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const AppContext = createContext();
 
@@ -106,8 +107,7 @@ export const AppContextProvider = (props) => {
     }, [user])
 
     const value = {
-        user,
-        getToken,
+        user,getToken,
         currency, router,
         isSeller, setIsSeller,
         userData, fetchUserData,
