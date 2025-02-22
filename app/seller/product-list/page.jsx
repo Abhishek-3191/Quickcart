@@ -33,7 +33,8 @@ const ProductList = () => {
   }
 
   useEffect(() => {
-    fetchSellerProduct();
+    if(user){
+    fetchSellerProduct();}
   }, [user])
 
   return (

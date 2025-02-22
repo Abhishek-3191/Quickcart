@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 export const AppContext = createContext();
 
@@ -27,7 +28,21 @@ export const AppContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({})
 
     const fetchProductData = async () => {
-        setProducts(productsDummyData)
+        //setdummy data
+        // setProducts(productsDummyData)
+        try {
+            
+       const {data}=await axios.get('/api/product/list')
+       if(data.success){
+        setProducts(data.products)
+       }
+       else{
+        toast.error(data.message)
+       }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
     }
 
     const fetchUserData = async () => {
@@ -60,7 +75,7 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = 1;
         }
         setCartItems(cartData);
-
+      toast.success('Item added to cart')
     }
 
     const updateCartQuantity = async (itemId, quantity) => {
