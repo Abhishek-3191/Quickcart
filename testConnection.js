@@ -1,5 +1,9 @@
+require("dotenv").config(); // Load environment variables from .env.local
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://Abhi3191:Abhi%403191@cluster0.qixd3.mongodb.net/myDatabase?retryWrites=true&w=majority")
+console.log("MongoDB URI in Next.js:", process.env.MONGODB_URI);
+
+mongoose
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB!"))
-  .catch(err => console.error("Connection error:", err));
+  .catch((err) => console.error("Connection error:", err));

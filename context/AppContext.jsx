@@ -66,7 +66,7 @@ export const AppContextProvider = (props) => {
     }
 
     const addToCart = async (itemId) => {
-
+        
         let cartData = structuredClone(cartItems);
         if (cartData[itemId]) {
             cartData[itemId] += 1;
@@ -75,7 +75,16 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = 1;
         }
         setCartItems(cartData);
-      toast.success('Item added to cart')
+        if(user){
+            try {
+                const token=await getToken()
+                await axios.post('/api/user/update',{cartData},{headers:{Authorization:`Bearer${token}`}})
+                toast.success('Item added to cart')
+
+        } catch (error) {
+            toast.error(error.message )
+        }
+      }
     }
 
     const updateCartQuantity = async (itemId, quantity) => {
@@ -87,7 +96,16 @@ export const AppContextProvider = (props) => {
             cartData[itemId] = quantity;
         }
         setCartItems(cartData)
+        if(user){
+            try {
+                const token=await getToken()
+                await axios.post('/api/user/update',{cartData},{headers:{Authorization:`Bearer${token}`}})
+                toast.success('Cart Updated')
 
+        } catch (error) {
+            toast.error(error.message )
+        }
+      }
     }
 
     const getCartCount = () => {
@@ -117,6 +135,7 @@ export const AppContextProvider = (props) => {
 
     useEffect(() => {
         if(user){
+            console.log("user data")
             fetchUserData()
         }
     }, [user])

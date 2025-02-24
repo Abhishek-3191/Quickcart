@@ -34,6 +34,7 @@ const ProductList = () => {
 
   useEffect(() => {
     if(user){
+      console.log("seller product list")
     fetchSellerProduct();}
   }, [user])
 
