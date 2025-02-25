@@ -1,6 +1,7 @@
 import connectDB from "@/config/db";
 import Address from "@/models/Address";
-import { getAuth } from "@clerk/nextjs/server";
+// import { getAuth } from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
