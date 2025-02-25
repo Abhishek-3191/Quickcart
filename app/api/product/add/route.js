@@ -27,7 +27,7 @@ export async function POST(request) {
         const price=formData.get('price')
         const offerPrice=formData.get('offerPrice')
         const files=formData.getAll('images')
-        if(!files || files.length()===0)
+        if(!files || files.length===0)
         {
             return NextResponse.json({success:false,message:"Not files uploaded"})
         }
